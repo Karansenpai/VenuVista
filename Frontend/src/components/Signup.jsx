@@ -1,30 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { Button, TextField, Grid, Typography, Container } from '@mui/material';
+import { BASE_URL } from './config';
 
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const [inputs, setInputs] = useState({
+    name: "",
+    email:"",
+    password: "",
+  })
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission here
-    console.log(formData); // You can replace this with your submission logic
-  };
+
+  const handleSignup = async() =>{
+    try{
+
+      const res = await fetch(`${BASE_URL}/api/users/restaurant/signup`,{
+        method: "POST",
+        headers:{
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputs),
+      });
+
+      const data = await res.json();
+
+      
+      if(data.token){
+        localStorage.setItem("token",data.token);
+        navigate("/");
+      }
+      else{
+        alert(data.err);
+      }
+      
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+  
 
   return (
     <Container maxWidth="xs">
-      <form onSubmit={handleSubmit}>
+      <div>
         <Typography variant="h4" gutterBottom>
           Sign Up
         </Typography>
@@ -35,8 +54,7 @@ const Signup = () => {
               variant="outlined"
               fullWidth
               name="name"
-              value={formData.name}
-              onChange={handleChange}
+              onChange={(e) => setInputs({...inputs, name: e.target.value})}
               required
             />
           </Grid>
@@ -46,9 +64,8 @@ const Signup = () => {
               variant="outlined"
               fullWidth
               name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
+              type="email"    
+              onChange={(e) => setInputs({...inputs, email: e.target.value})}
               required
             />
           </Grid>
@@ -59,8 +76,7 @@ const Signup = () => {
               fullWidth
               name="password"
               type="password"
-              value={formData.password}
-              onChange={handleChange}
+              onChange={(e) => setInputs({...inputs, password: e.target.value})}
               required
             />
           </Grid>
@@ -71,10 +87,11 @@ const Signup = () => {
           color="primary"
           fullWidth
           size="large"
+          onClick={handleSignup}
         >
           Sign Up
         </Button>
-      </form>
+      </div>
     </Container>
   );
 };
