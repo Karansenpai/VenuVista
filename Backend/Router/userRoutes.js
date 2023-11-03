@@ -55,7 +55,6 @@ router.post("/restaurant/signup",async(req,res)=>{
     }
 })
 
-
 router.post("/restaurant/login",async(req,res)=>{
     try{
 
@@ -86,7 +85,6 @@ router.post("/restaurant/login",async(req,res)=>{
         console.log("Error in Signupuser: "+ err.message);
     }
 })
-
 
 router.post("/restaurant/logout",async(req,res)=>{
     try{
@@ -177,6 +175,7 @@ router.post("/library/login",async(req,res)=>{
 
 
 })
+
 router.post("/hospital/signup",(req,res)=>{
 
     
