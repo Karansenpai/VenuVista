@@ -5,8 +5,6 @@ import SignupForm from './components/Signup'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <Navbar></Navbar>
