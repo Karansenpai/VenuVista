@@ -32,6 +32,6 @@ const librarySchema = mongoose.Schema({
 });
 
 
-const Restaurant = mongoose.model("Restaurant", restaurantSchema);
+const Library = mongoose.model("Library", librarySchema);
 
-export default Restaurant;
+export default Library;
