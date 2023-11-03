@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
-import SignupForm from './components/Signup'
+import SearchBar from './components/SearchBar'
+import MasterCard from './components/MasterCard'
+import Footer from './components/Footer'
+import LocationSearch from './components/LocationSearch'
 
 
 function App() {
@@ -10,7 +13,10 @@ function App() {
   return (
     <>
       <Navbar></Navbar>
-      <SignupForm></SignupForm>
+      <SearchBar></SearchBar>
+      <LocationSearch></LocationSearch>
+      <MasterCard></MasterCard>
+      <Footer></Footer>
     </>
   )
 }
