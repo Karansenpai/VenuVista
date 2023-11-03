@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 
 const locations = ["Port Blair",
 "Adoni",
@@ -514,9 +515,14 @@ function LocationSearch() {
       setSearchTerm(value);
   
       // Filter locations based on the search term
-      const filteredLocations = locations.filter(location =>
-        location.toLowerCase().includes(value.toLowerCase())
-      );
+      if (value) {
+        const filteredLocations = locations.filter(location =>
+          location.toLowerCase().startsWith(value.toLowerCase())
+        );
+        setSearchResults(filteredLocations.slice(0, 5));
+      } else {
+        setSearchResults([]);
+      }
   
       // Update the search results
       setSearchResults(filteredLocations.slice(0, 5)); // Display up to 5 matching results
@@ -525,10 +531,12 @@ function LocationSearch() {
     const handleLocationClick = (location) => {
       // Handle what happens when a location is clicked (e.g., set it as a selected location)
       console.log(`Selected location: ${location}`);
+
     };
   
     return (
       <div>
+        <LocationOnIcon></LocationOnIcon>
         <input
           type="text"
           placeholder="Search for a location..."
