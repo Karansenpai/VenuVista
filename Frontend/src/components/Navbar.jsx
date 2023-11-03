@@ -1,47 +1,22 @@
-function Navbar() {
-  
-    return (
-      <section id="navbar" class="gradient-background">
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-              <img src="mynotcanvaphonecropped.jpeg" width="30" height="24" class="d-inline-block align-text-top" alt="Logo" />
-              MentorPro
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-  
-            <div class="collapse navbar-collapse" id="navbarsExample03">
-              <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-              <form role="search">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
-              </form>
-            </div>
-          </div>
-        </nav>
-      </section>
-    );
-  }
-  
-  export default Navbar;
-  
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+export default function Navbar() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            News
+          </Typography>
+          <Button color="inherit">Login</Button>
+          <Button color="inherit">Register</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
+}
