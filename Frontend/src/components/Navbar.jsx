@@ -1,4 +1,5 @@
 function Navbar() {
+  
     return (
       <section id="navbar" class="gradient-background">
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
