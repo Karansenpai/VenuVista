@@ -17,11 +17,7 @@ const librarySchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    state: {
-        type: String,
-        required: true,
-    },
-    seatsAvailable: {
+    totalSeats: {
         type: Number,
         required: true,
     },

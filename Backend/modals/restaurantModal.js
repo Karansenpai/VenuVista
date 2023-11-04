@@ -17,19 +17,15 @@ const restaurantSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    state: {
-        type: String,
-        required: true,
-    },
     isVeg: {
         type: Boolean,
         required: true,
     },
-    tbAvailable: {
+    totalTables: {
         type: Number,
         required: true,
     },
-    tableOccupied: {
+    tablesOccupied: {
         type: Number,
         default: 0,
     },

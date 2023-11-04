@@ -27,7 +27,7 @@ router.post("/restaurant/signup",async(req,res)=>{
             city,
             state,
             isVeg,
-            tbAvailable,
+            totalTables,
             description
         });
 
@@ -40,9 +40,8 @@ router.post("/restaurant/signup",async(req,res)=>{
                 _id: user._id,
                 username: user.name,
                 city: user.city,
-                state:user.state,
                 isVeg:user.isVeg,
-                tbAvailable:user.tbAvailable,
+                tbAvailable:user.totalTables,
                 description:user.description,    
             })
         } else{
@@ -74,7 +73,6 @@ router.post("/restaurant/login",async(req,res)=>{
             _id: user._id,
             username: user.name,
             city: user.city,
-            state:user.state,
             isVeg:user.isVeg,
             tbAvailable:user.tbAvailable,
             description:user.description,   
@@ -117,8 +115,7 @@ router.post("/library/signup",async(req,res)=>{
             username,
             password,
             city,
-            state,
-            seatsAvailable
+            totalSeats,
         });
 
         await newUser.save();
@@ -163,7 +160,6 @@ router.post("/library/login",async(req,res)=>{
             _id: user._id,
             username: user.name,
             city: user.city,
-            state:user.state,
             seatsAvailable: user.seatsAvailable,
             seatsOccupied:user.seatsOccupied,   
         })
