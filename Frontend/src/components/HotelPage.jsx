@@ -5,10 +5,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import { BASE_URL } from "./config";
+import axios from "axios";
 
 export default function HotelPage() {
 
   const [seats, setseats] = React.useState(0);
+  const [vacate, setvacate] = React.useState(0);
   return (
     <div style={{marginTop: '16px', marginBottom: '16px', display: "flex", direction: "column", alignItems: "center", justifyContent: 'center'}}>
     <Card sx={{ width: '80%'}}>
@@ -42,11 +45,55 @@ export default function HotelPage() {
         }}
         onChange={(e) => setseats(e.target.value)}/>
         <Button variant="outlined"
-        onClick={()=>{
-          
+        onClick={async () => {
+          const response = await axios.put(
+            `${BASE_URL}/api/update/book`,
+            {
+              seats: seats,
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            }
+          );
+          if (response.data.message) {
+            alert(response.data.message);
+          } else {
+            alert(response.data.err);
+          }
         }}
         >BOOK</Button>
-        <Button variant="outlined">VACANT</Button>
+        <TextField
+            id="filled-basic"
+            label="no of seats to vacate?"
+            type="number"
+            variant="filled"
+            onChange={(e) => setvacate(e.target.value)}
+          />
+        <Button
+            variant="outlined"
+            onClick={async () => {
+              const response = await axios.put(
+                `${BASE_URL}/api/update/vacate`,
+                {
+                  vacate: vacate,
+                },
+                {
+                  headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                  },
+                }
+              );
+              if (response.data.message) {
+                alert(response.data.message);
+              } else {
+                alert(response.data.err);
+              }
+            }}
+          >
+            Vacate
+          </Button>
       </div>
     </Card>
     </div>
