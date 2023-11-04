@@ -9,9 +9,12 @@ import '../styles/HotelCard.css'
 export default function HotelCard(props) {
 
   return (
+    <div onClick={()=>{
+      navigate("/")
+    }}>
     <Card sx={{ maxWidth: 345, borderRadius: "5%", border: "1px solid #EAEAEA" }}>
       <CardHeader
-        title={props.title}
+        title={props.name}
       />
       <CardMedia
         component="img"
@@ -24,5 +27,6 @@ export default function HotelCard(props) {
         </Typography>
       </CardContent>
     </Card>
+    </div>
   );
 }
