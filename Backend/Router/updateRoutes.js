@@ -1,9 +1,5 @@
 import express from "express";
 import authenticateJwt from "../middlewares/authenticatjwt.js";
-<<<<<<< HEAD
-=======
-import Restaurant from "../modals/restaurantModal.js";
->>>>>>> b4792a38c0d9a1848483a04fbcf86be65227c0b8
 
 const router = express.Router();
 
