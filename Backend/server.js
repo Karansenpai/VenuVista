@@ -5,7 +5,7 @@ import connectDb from "./db/connectDb.js"
 import cookieParser from "cookie-parser";
 import userRoutes from "./Router/userRoutes.js"
 import authenticateJwt from "./middlewares/authenticatjwt.js";
-
+import fetchRoutes from "./Router/fetchRoutes.js"
 const app = express();
 
 dotenv.config();
@@ -18,15 +18,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 
-
-app.get("/me",authenticateJwt, (req,res)=>{
-    try{
-        res.json({_id: req._id});
-    } catch(err){
-        res.json({err: err.message});
-    }
-})
 app.use("/api/users",userRoutes);
+app.use("/api/fetch",fetchRoutes);
 
 app.listen(3000,(()=>{
     console.log("connected to http://localhost:3000");
