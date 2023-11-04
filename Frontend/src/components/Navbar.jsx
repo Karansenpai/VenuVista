@@ -29,6 +29,14 @@ export default function Navbar() {
             <Button
               color="inherit"
               onClick={() => {
+                navigate("/hotelpage");
+              }}
+            >
+              Dashboard
+            </Button>
+            <Button
+              color="inherit"
+              onClick={() => {
                 localStorage.setItem("token", null);
                 setUser({
                   _id: null,
