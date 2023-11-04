@@ -4,11 +4,12 @@ import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import '../styles/HotelCard.css'
 
 export default function HotelCard(props) {
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, borderRadius: "5%", border: "1px solid #EAEAEA" }}>
       <CardHeader
         title={props.title}
       />

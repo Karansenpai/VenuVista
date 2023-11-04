@@ -5,8 +5,9 @@ import TwitterIcon from '@mui/icons-material/Twitter'
 import FacebookIcon from '@mui/icons-material/Facebook'
 
 const Footer = () => {
+
   return (
-    <Grid container sx={{ bgcolor: 'primary.main', padding: '2rem', color: 'white' }}>
+    <Grid container sx={{ bgcolor: 'primary.main', padding: '2rem', color: 'white', bottom: 0,}}>
       <Grid item xs={12} sm={6} md={3}>
         <Typography variant="h6">Follow Us</Typography>
         <IconButton component={Link} href="https://www.instagram.com/your_instagram_account" target="_blank">
