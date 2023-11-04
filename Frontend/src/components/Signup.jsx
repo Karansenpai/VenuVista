@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { Button, TextField, Grid, Typography, Container, Select, MenuItem } from '@mui/material';
+import { BASE_URL } from './config';
 
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -35,6 +37,42 @@ const Signup = () => {
 
   const maxCharacterLimit = 60; 
 
+  const [inputs, setInputs] = useState({
+    name: "",
+    email:"",
+    password: "",
+  })
+
+
+  const handleSignup = async() =>{
+    try{
+
+      const res = await fetch(`${BASE_URL}/api/users/restaurant/signup`,{
+        method: "POST",
+        headers:{
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputs),
+      });
+
+      const data = await res.json();
+
+      
+      if(data.token){
+        localStorage.setItem("token",data.token);
+        navigate("/");
+      }
+      else{
+        alert(data.err);
+      }
+      
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+  
+
   return (
     <Container maxWidth="xs">
         <Grid item xs={12}>
@@ -50,7 +88,7 @@ const Signup = () => {
               <MenuItem value="library">Library</MenuItem>
             </Select>
           </Grid>
-      <form onSubmit={handleSubmit}>
+      <div>
         <Typography variant="h4" gutterBottom>
           Sign Up
         </Typography>
@@ -61,8 +99,7 @@ const Signup = () => {
               variant="outlined"
               fullWidth
               name="name"
-              value={formData.name}
-              onChange={handleChange}
+              onChange={(e) => setInputs({...inputs, name: e.target.value})}
               required
             />
           </Grid>
@@ -84,8 +121,7 @@ const Signup = () => {
               variant="outlined"
               fullWidth
               name="city"
-              value={formData.password}
-              onChange={handleChange}
+              onChange={(e) => setInputs({...inputs, password: e.target.value})}
               required
             />
           </Grid>
@@ -165,10 +201,11 @@ const Signup = () => {
           color="primary"
           fullWidth
           size="large"
+          onClick={handleSignup}
         >
           Sign Up
         </Button>
-      </form>
+      </div>
     </Container>
   );
 };

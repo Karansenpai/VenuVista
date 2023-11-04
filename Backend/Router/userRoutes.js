@@ -17,7 +17,7 @@ router.post("/restaurant/signup",async(req,res)=>{
 
 
         if(user){
-            return res.status(400).json({message: "username already exists"});
+            return res.status(400).json({err: "username already exists"});
         }
 
         const newUser = new Restaurant({
@@ -34,7 +34,7 @@ router.post("/restaurant/signup",async(req,res)=>{
         await newUser.save();
 
         if(newUser){
-            generateToken(newUser._id,res);
+            const token =  generateToken(newUser._id,res);
             res.status(201).json({
                 name: user.name,
                 _id: user._id,
@@ -43,13 +43,14 @@ router.post("/restaurant/signup",async(req,res)=>{
                 isVeg:user.isVeg,
                 tbAvailable:user.totalTables,
                 description:user.description,    
+                token: token,
             })
         } else{
-            res.status(400).json({message: "Invalid Data"});
+            res.status(400).json({err: "Invalid Data"});
         }
     }
     catch(err){
-        res.status(500).json({message: err.message});
+        res.status(500).json({err: err.message});
         console.log("Error in Signupuser: "+ err.message);
     }
 })
@@ -66,7 +67,7 @@ router.post("/restaurant/login",async(req,res)=>{
             })
         }
 
-        generateToken(user._id,res);
+        const token = generateToken(user._id,res);
 
         res.status(201).json({
             name: user.name,
@@ -76,10 +77,11 @@ router.post("/restaurant/login",async(req,res)=>{
             isVeg:user.isVeg,
             tbAvailable:user.tbAvailable,
             description:user.description,   
+            token: token,
         })
     }
     catch(err){
-        res.status(500).json({message: err.message});
+        res.status(500).json({err: err.message});
         console.log("Error in Signupuser: "+ err.message);
     }
 })
@@ -92,7 +94,7 @@ router.post("/restaurant/logout",async(req,res)=>{
 
     }
     catch(err){
-        res.status(404).json({message: err.message});
+        res.status(404).json({err: err.message});
         console.log("message "+err.message);
     }
 })
@@ -106,7 +108,7 @@ router.post("/library/signup",async(req,res)=>{
         const user = await Library.findOne({username});
 
         if(user){
-            return res.status(400).json({message: "username already exists"});
+            return res.status(400).json({err: "username already exists"});
         }
         console.log(user);
 
@@ -121,7 +123,7 @@ router.post("/library/signup",async(req,res)=>{
         await newUser.save();
 
         if(newUser){
-            generateToken(newUser._id,res);
+            const token = generateToken(newUser._id,res);
             res.status(201).json({
                 name: newUser.name,
                 _id: newUser._id,
@@ -129,14 +131,15 @@ router.post("/library/signup",async(req,res)=>{
                 city: newUser.city,
                 state:newUser.state,
                 seatsAvailable: newUser.seatsAvailable,
-                seatsOccupied: newUser.seatsOccupied,  
+                seatsOccupied: newUser.seatsOccupied, 
+                token: token, 
             })
         } else{
-            res.status(400).json({message: "Invalid Data"});
+            res.status(400).json({err: "Invalid Data"});
         }
     }
     catch(err){
-        res.status(500).json({message: err.message});
+        res.status(500).json({err: err.message});
         console.log("Error in Signupuser: "+ err.message);
     }
 
@@ -150,10 +153,10 @@ router.post("/library/login",async(req,res)=>{
         const user = await Library.findOne({username});
 
         if(!user && user.password == password){
-            return res.status(400).json({message: "invalid username or password"});
+            return res.status(400).json({err: "invalid username or password"});
         }
         
-        generateToken(user._id,res);
+        const token = generateToken(user._id,res);
 
         res.status(201).json({
             name: user.name,
@@ -161,11 +164,12 @@ router.post("/library/login",async(req,res)=>{
             username: user.name,
             city: user.city,
             seatsAvailable: user.seatsAvailable,
-            seatsOccupied:user.seatsOccupied,   
+            seatsOccupied:user.seatsOccupied, 
+            token: token  
         })
     }
     catch(err){
-        res.status(500).json({message: err.message});
+        res.status(500).json({err: err.message});
         console.log("Error in Signupuser: "+ err.message);
     }
 
