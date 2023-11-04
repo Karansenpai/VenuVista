@@ -24,4 +24,19 @@ router.get("/fetchall",async(req,res)=>{
     }
 })
 
+router.get("/fetchone",authenticateJwt, async(req,res) => {
+    try{
+        const user = await Restaurant.findById(req._id);
+
+        if(!user){
+          return res.json({err: "user does not exist"});
+        } 
+        return res.json(user);
+
+    } catch(err){
+        res.json({err: err.message});
+    }
+
+})
+
 export default router;
