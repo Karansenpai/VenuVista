@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 app.use("/api/users",userRoutes);
 app.use("/api/fetch",fetchRoutes);
-app.user("/api/update", updateRoutes)
+app.use("/api/update", updateRoutes)
 
 app.listen(3000,(()=>{
     console.log("connected to http://localhost:3000");
