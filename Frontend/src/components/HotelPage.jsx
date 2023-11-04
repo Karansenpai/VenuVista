@@ -7,6 +7,7 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 
 export default function HotelPage() {
   return (
+    <div style={{marginTop: '16px', marginBottom: '16px', display: "flex", direction: "column", alignItems: "center", justifyContent: 'center'}}>
     <Card sx={{ width: '80%'}}>
       <CardActionArea>
         <CardMedia
@@ -30,5 +31,6 @@ export default function HotelPage() {
         </Button>
       </CardActions>
     </Card>
+    </div>
   );
 }

@@ -34,7 +34,7 @@ const Login = () => {
           userId: data._id,
           isLoading: false,
         });
-        navigate('/');
+        navigate('/landing');
       } else {
         alert(data.err);
       }

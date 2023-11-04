@@ -30,6 +30,12 @@ const spacingStyle = {
 
 function App() {
 
+
+  //fetching Data
+  const csvFilePath = "./zomato.csv";
+  
+
+
   return (
     <RecoilRoot>
       <div>
@@ -39,13 +45,9 @@ function App() {
           <Routes>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/login" element = {<Login/>}></Route>
-          </Routes>
-          <div style={{marginTop: '16px', marginBottom: '16px'}}>
-            {<MasterCard/>}
-          </div> 
-          {/* <div style={{marginTop: '16px', marginBottom: '16px', display: "flex", direction: "column", alignItems: "center", justifyContent: 'center'}}>
-            {<HotelPage />}
-          </div>   */}
+            <Route path="/" element= {<MasterCard/>}></Route>
+            <Route path="/landing" element={<HotelPage/>}></Route>
+          </Routes>  
           <Footer/>
         </Router>
       </div>

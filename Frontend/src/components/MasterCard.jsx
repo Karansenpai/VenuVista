@@ -60,7 +60,8 @@ const hotelsData = [
 ];
 
 const MasterCard = () => {
-  return (
+  return ( 
+  <div style={{marginTop: '16px', marginBottom: '16px'}}>
     <Grid container spacing={3} >
       {hotelsData.map((hotel) => (
         <Grid item xs={12} sm={6} md={4} key={hotel.id} display="flex" direction="column" alignItems="center">
@@ -68,6 +69,7 @@ const MasterCard = () => {
         </Grid>
       ))}
     </Grid>
+  </div>
   );
 };
 

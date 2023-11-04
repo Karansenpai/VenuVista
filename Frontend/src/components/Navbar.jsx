@@ -24,7 +24,7 @@ export default function Navbar() {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
+            <a href="/" style={{color: "white","textDecoration":"none"}}> Void</a>
             </Typography>
             <Button
               color="inherit"
@@ -50,7 +50,7 @@ export default function Navbar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+          <a href="/" style={{color: "white","textDecoration":"none"}}> Void</a>
           </Typography>
           <Button
             color="inherit"
