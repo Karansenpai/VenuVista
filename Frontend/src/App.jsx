@@ -18,6 +18,7 @@ import {
 import { userInfo } from "../atoms/userInfo";
 import Login from "./components/Login";
 import HotelPage from "./components/HotelPage";
+import Insidehotel from "./components/InsideHotel";
 
 const spacingStyle = {
   marginTop: '16px', // Adjust the spacing as needed
@@ -47,6 +48,7 @@ function App() {
             <Route path="/login" element = {<Login/>}></Route>
             <Route path="/" element= {<MasterCard/>}></Route>
             <Route path="/hotelpage" element={<HotelPage/>}></Route>
+            <Route path="/insidehotel/:id" element={<Insidehotel/>}></Route>
           </Routes>  
           <Footer/>
         </Router>

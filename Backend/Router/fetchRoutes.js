@@ -1,9 +1,25 @@
 import express from "express";
 import authenticateJwt from "../middlewares/authenticatjwt.js";
 import Restaurant from "../modals/restaurantModal.js";
-
+import mongoose from "mongoose";
 const router = express.Router();
 
+
+
+router.get("/getDetail",async(req,res)=>{
+    try{
+        const {id} = req.headers;
+        const user = await Restaurant.findById(id);
+        if(!user){
+            return res.json({err: "Restaurant does not exist"});
+        }
+
+        res.json(user);
+    }
+    catch(err){
+        res.json({err:err.message});
+    }
+})
 
 router.get("/me",authenticateJwt, (req,res)=>{
     try{

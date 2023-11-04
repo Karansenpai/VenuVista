@@ -1,48 +1,102 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import TextField from '@mui/material/TextField';
+import React, { useEffect, useState } from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea, CardActions } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "./config";
 
-export default function HotelPage() {
-  // Sample values for total seats, seats available, and estimated time
-  const totalSeats = 100;
-  const seatsAvailable = 40;
-  const estimatedTime = '30 minutes';
+export default function Insidehotel() {
+  const { id } = useParams();
+  const [user, setUser] = useState(null);
+  const [totalSeats, settotalSeats] = useState(0);
+  const [seatsAvailable, setSeatsAvailable] = useState(0);
+  const estimatedTime = "30 minutes";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/fetch/getDetail`, {
+          headers: {
+            id: id,
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+
+        setUser(response.data);
+        settotalSeats(response.data.totalTables);
+        setSeatsAvailable(response.data.totalTables - response.data.tablesOccupied);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  // Define your inline styles
+  const containerStyle = {
+    marginTop: "16px",
+    marginBottom: "16px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+  const cardStyle = {
+    width: "80%",
+  };
+
+  const cardMediaStyle = {
+    height: "350px",
+  background: `url("https://www.timeoutdubai.com/cloud/timeoutdubai/2023/06/06/Sushisamba.jpg")`,
+    backgroundSize: "cover",
+  };
+
+  const cardContentStyle = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  };
+
+  const seatsInfoStyle = {
+    display: "flex",
+    justifyContent: "space-around",
+  };
 
   return (
-    <div style={{ marginTop: '16px', marginBottom: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-      <Card sx={{ width: '80%' }}>
-        <CardActionArea style={{ pointerEvents: 'none', cursor: 'none' }}>
-          <CardMedia
-            component="img"
-            height="350vh"
-            image="https://www.timeoutdubai.com/cloud/timeoutdubai/2023/06/06/Sushisamba.jpg"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Hotel 1
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-
-        <CardContent>
-          <div style={{ display: 'flex', flexDirection: 'column' , justifyContent: 'space-between' }}>
-            <div style={{display: 'flex', justifyContent: 'space-around'}}> 
-              <Typography variant="body1">Total Seats: {totalSeats}</Typography>
-              <Typography variant="body1">Seats Available: {seatsAvailable}</Typography>
-            </div>
-            <div>
+    <div style={containerStyle}>
+      {user ? (
+        <Card style={cardStyle}>
+          <CardActionArea style={{ pointerEvents: "none", cursor: "none" }}>
+            <CardMedia
+              component="img"
+              style={cardMediaStyle}
+            />
+            <CardContent style={cardContentStyle}>
+              <Typography gutterBottom variant="h5" component="div">
+                {user.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {user.description}
+              </Typography>
+              <div style={seatsInfoStyle}>
+                <Typography variant="body1">Total Seats: {totalSeats}</Typography>
+                <Typography variant="body1">
+                  Seats Available: {seatsAvailable}
+                </Typography>
+              </div>
               <Typography variant="body1">Estimated Time: {estimatedTime}</Typography>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 }

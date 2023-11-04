@@ -5,13 +5,13 @@ import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import '../styles/HotelCard.css'
+import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 export default function HotelCard(props) {
+  const navigate = useNavigate();
 
   return (
-    <div onClick={()=>{
-      navigate("/")
-    }}>
     <Card sx={{ maxWidth: 345, borderRadius: "5%", border: "1px solid #EAEAEA" }}>
       <CardHeader
         title={props.name}
@@ -25,8 +25,14 @@ export default function HotelCard(props) {
         <Typography variant="body2" color="text.secondary">
           {props.description}
         </Typography>
+        <Button variant='outlined'
+        onClick={()=>{
+          navigate(`insidehotel/${props.id}`)
+        }}
+        
+        >View</Button>
       </CardContent>
     </Card>
-    </div>
+  
   );
 }
