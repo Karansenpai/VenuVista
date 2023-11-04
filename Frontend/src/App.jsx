@@ -17,9 +17,19 @@ import {
 
 import { userInfo } from "../atoms/userInfo";
 import Login from "./components/Login";
+import HotelPage from "./components/HotelPage";
 
+const spacingStyle = {
+  marginTop: '16px', // Adjust the spacing as needed
+  marginBottom: '16px', // Adjust the spacing as needed
+  display: "flex",
+  direction: "column",
+  alignItems: "center",
+  justifyContent: 'center'
+};
 
 function App() {
+
   return (
     <RecoilRoot>
       <div>
@@ -30,6 +40,12 @@ function App() {
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/login" element = {<Login/>}></Route>
           </Routes>
+          <div style={{marginTop: '16px', marginBottom: '16px'}}>
+            {<MasterCard/>}
+          </div> 
+          {/* <div style={{marginTop: '16px', marginBottom: '16px', display: "flex", direction: "column", alignItems: "center", justifyContent: 'center'}}>
+            {<HotelPage />}
+          </div>   */}
           <Footer/>
         </Router>
       </div>
