@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import userRoutes from "./Router/userRoutes.js"
 import authenticateJwt from "./middlewares/authenticatjwt.js";
 import fetchRoutes from "./Router/fetchRoutes.js"
+import updateRoutes from "./Router/updateRoutes.js"
 const app = express();
 
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 app.use("/api/users",userRoutes);
 app.use("/api/fetch",fetchRoutes);
+app.user("/api/update", updateRoutes)
 
 app.listen(3000,(()=>{
     console.log("connected to http://localhost:3000");

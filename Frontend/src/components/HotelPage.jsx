@@ -4,16 +4,19 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
+import TextField from '@mui/material/TextField';
 
 export default function HotelPage() {
+
+  const [seats, setseats] = React.useState(0);
   return (
     <div style={{marginTop: '16px', marginBottom: '16px', display: "flex", direction: "column", alignItems: "center", justifyContent: 'center'}}>
     <Card sx={{ width: '80%'}}>
-      <CardActionArea>
+      <CardActionArea style={{':hover':'none', pointerEvents: 'none', cursor: 'none'}}>
         <CardMedia
           component="img"
-          height=""
-          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX85iLXo8rl0uEBmZszlacP0bzRpkjkVLQoA&usqp=CAU"
+          height="350vh"
+          image="https://www.timeoutdubai.com/cloud/timeoutdubai/2023/06/06/Sushisamba.jpg"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -26,10 +29,25 @@ export default function HotelPage() {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Edit
-        </Button>
+        <Button variant="outlined">Edit</Button>
       </CardActions>
+      <div style={{marginTop: '16px', marginBottom: '16px', display: "flex", direction: "column", alignItems: "center", justifyContent: 'center', gap: '20px'}}>
+      <TextField id="filled-basic" label="no of tables" variant="filled" 
+        InputProps={{
+          inputProps: {
+            type: 'number',
+            step: 1, // step by 1
+            min: 1,   // minimum value
+          }
+        }}
+        onChange={(e) => setseats(e.target.value)}/>
+        <Button variant="outlined"
+        onClick={()=>{
+          
+        }}
+        >BOOK</Button>
+        <Button variant="outlined">VACANT</Button>
+      </div>
     </Card>
     </div>
   );
