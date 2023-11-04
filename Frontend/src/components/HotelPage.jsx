@@ -9,7 +9,6 @@ import { BASE_URL } from "./config";
 import axios from "axios";
 
 export default function HotelPage() {
-
   const [seats, setseats] = React.useState(0);
   const [vacate, setvacate] = React.useState(0);
   return (
