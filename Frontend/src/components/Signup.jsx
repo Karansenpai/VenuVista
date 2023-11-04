@@ -38,7 +38,7 @@ const Signup = () => {
           isLoading: false,
         });
         localStorage.setItem('token', data.token);
-        navigate('/landing'); // Navigate to the desired page
+        navigate('/hotelpage'); // Navigate to the desired page
       } else {
         alert(data.err);
       }

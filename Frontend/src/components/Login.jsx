@@ -34,7 +34,7 @@
             userId: data._id,
             isLoading: false,
           });
-          navigate('/landing');
+          navigate('/hotelpage');
         } else {
           alert(data.err);
         }
