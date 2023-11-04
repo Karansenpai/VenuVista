@@ -5,16 +5,15 @@ const router = express.Router();
 import Restaurant from "../modals/restaurantModal.js"
 
 import generateToken from "../utils/helpers/generateToken.js";
+
 import Library from "../modals/libraryModal.js";
 
 router.post("/restaurant/signup",async(req,res)=>{
     try{
 
-        const {name,username,password,city,state,isVeg,tbAvailable,description} = req.body;
+        const {name,username,password,city,state,isVeg,totalTables,description} = req.body;
         
-
         const user = await Restaurant.findOne({username});
-
 
         if(user){
             return res.status(400).json({err: "username already exists"});
@@ -36,13 +35,8 @@ router.post("/restaurant/signup",async(req,res)=>{
         if(newUser){
             const token =  generateToken(newUser._id,res);
             res.status(201).json({
-                name: user.name,
-                _id: user._id,
-                username: user.name,
-                city: user.city,
-                isVeg:user.isVeg,
-                tbAvailable:user.totalTables,
-                description:user.description,    
+                message: "Signed Up successfully",
+                _id: newUser._id,
                 token: token,
             })
         } else{
@@ -57,7 +51,6 @@ router.post("/restaurant/signup",async(req,res)=>{
 
 router.post("/restaurant/login",async(req,res)=>{
     try{
-
         const {username,password} = req.body;
         const user = await Restaurant.findOne({username});
 
@@ -70,13 +63,8 @@ router.post("/restaurant/login",async(req,res)=>{
         const token = generateToken(user._id,res);
 
         res.status(201).json({
-            name: user.name,
+            message: "Logged in successfully",
             _id: user._id,
-            username: user.name,
-            city: user.city,
-            isVeg:user.isVeg,
-            tbAvailable:user.tbAvailable,
-            description:user.description,   
             token: token,
         })
     }
@@ -86,18 +74,15 @@ router.post("/restaurant/login",async(req,res)=>{
     }
 })
 
-router.post("/restaurant/logout",async(req,res)=>{
-    try{
-
-        res.cookie("jwt","",{maxAge:1});
-        res.status(200).json("User Logged Out successfully");
-
-    }
-    catch(err){
-        res.status(404).json({err: err.message});
-        console.log("message "+err.message);
-    }
-})
+// router.post("/restaurant/logout",async(req,res)=>{
+//     try{
+//         res.status(200).json("User Logged Out successfully");
+//     }
+//     catch(err){
+//         res.status(404).json({err: err.message});
+//         console.log("message "+err.message);
+//     }
+// })
 
 router.post("/library/signup",async(req,res)=>{
     try{

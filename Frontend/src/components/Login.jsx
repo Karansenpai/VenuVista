@@ -1,81 +1,89 @@
 import React, { useState } from 'react';
 import { Button, TextField, Grid, Typography, Container, Select, MenuItem } from '@mui/material';
+import { BASE_URL } from './config';
+import { userInfo } from '../../atoms/userInfo';
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
-const Signup = () => {
-  const [formData, setFormData] = useState({
-    name: '',
+const Login = () => {
+  const navigate = useNavigate();
+  const setInfo = useSetRecoilState(userInfo);
+
+  const [inputs, setInputs] = useState({
     username: '',
     password: '',
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const maxCharacterLimit = 60;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission here
-    console.log(formData); // You can replace this with your submission logic
+  const handleLogin = async () => {
+    try {
+      const res = await fetch(`${BASE_URL}/api/users/restaurant/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inputs),
+      });
+
+      const data = await res.json();
+
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        setInfo({
+          userId: data._id,
+          isLoading: false,
+        });
+        navigate('/');
+      } else {
+        alert(data.err);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <Container maxWidth="xs">
-      <form onSubmit={handleSubmit}>
-        <Typography variant="h4" gutterBottom>
-          Sign Up
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              label="Name"
-              variant="outlined"
-              fullWidth
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Username"
-              variant="outlined"
-              fullWidth
-              name="username"
-              type="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Password"
-              variant="outlined"
-              fullWidth
-              name="city"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </Grid>
+      <Typography variant="h4" gutterBottom>
+        Log in
+      </Typography>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            label="Username"
+            variant="outlined"
+            fullWidth
+            name="username"
+            type="text"
+            onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
+            required
+          />
         </Grid>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          size="large"
-        >
-          Sign Up
-        </Button>
-      </form>
+        <Grid item xs={12}>
+          <TextField
+            label="Password"
+            variant="outlined"
+            fullWidth
+            name="password"
+            type="password"
+            onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
+            required
+          />
+        </Grid>
+      </Grid>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        fullWidth
+        size="large"
+        onClick={handleLogin}
+      >
+        Log in
+      </Button>
     </Container>
   );
 };
 
-export default Signup;
+export default Login;

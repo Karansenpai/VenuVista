@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -7,11 +7,16 @@ import MasterCard from "./components/MasterCard";
 import Footer from "./components/Footer";
 import LocationSearch from "./components/LocationSearch";
 import Signup from "./components/Signup";
+import axios from "axios";
 import React from 'react';
+import { BASE_URL } from "./components/config";
 import {
   RecoilRoot,
+  useSetRecoilState,
 } from 'recoil';
+
 import { userInfo } from "../atoms/userInfo";
+import Login from "./components/Login";
 
 
 function App() {
@@ -19,16 +24,16 @@ function App() {
     <RecoilRoot>
       <div>
         <Router>
-          {/* <InitUser /> */}
+          <InitUser/>
           <Navbar />
           <Routes>
             <Route path="/signup" element={<Signup />}></Route>
+            <Route path="/login" element = {<Login/>}></Route>
           </Routes>
           <Footer/>
         </Router>
       </div>
     </RecoilRoot>
-
   );
 }
 
@@ -42,33 +47,31 @@ export function InitUser() {
           "Authorization": "Bearer " + localStorage.getItem("token"),
         },
       });
-      if (response.data.username) {
+      console.log(response.data);
+      if (response.data._id) {
         setUser({
-          username: response.data.username,
-          password: null,
+          userId: response.data._id,
           isLoading: false,
         });
       } else {
         setUser({
-          username: null,
-          password: null,
+          userId: null,
           isLoading: false,
         });
       }
-    } catch (e) {
+    } catch (error) {
+        console.log(error);
         setUser({
-          username: null,
-          password: null,
+          userId: null,
           isLoading: false,
         })
     }
     } 
-  ;
-
   useEffect(() => {
     init();
   },[]);
 
   return <></>;
 }
+
 export default App;

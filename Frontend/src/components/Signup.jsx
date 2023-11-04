@@ -1,10 +1,15 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Button, TextField, Grid, Typography, Container, Select, MenuItem } from '@mui/material';
 import { BASE_URL } from './config';
+import { userInfo } from '../../atoms/userInfo';
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import axios from 'axios'; // Import axios for making HTTP requests
 
-import { useNavigate } from "react-router-dom";
 const Signup = () => {
-  const [formData, setFormData] = useState({
+  const setInfo = useSetRecoilState(userInfo);
+  const navigate = useNavigate(); // Added navigate function
+  const [inputs, setInputs] = useState({
     name: '',
     username: '',
     password: '',
@@ -17,77 +22,33 @@ const Signup = () => {
 
   const [userType, setUserType] = useState('restaurant'); // State to store the selected user type
 
-  const handleChangeUserType = (event) => {
-    setUserType(event.target.value);
-  };
+  const maxCharacterLimit = 60;
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const handleSignup = async () => {
+    try {
+      console.log(inputs);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission here
-    console.log(formData); // You can replace this with your submission logic
-  };
+      const res = await axios.post(`${BASE_URL}/api/users/restaurant/signup`, inputs); // Send the 'inputs' object directly
 
-  const maxCharacterLimit = 60; 
+      const data = res.data; // Use res.data to get response data
 
-  const [inputs, setInputs] = useState({
-    name: "",
-    email:"",
-    password: "",
-  })
-
-
-  const handleSignup = async() =>{
-    try{
-
-      const res = await fetch(`${BASE_URL}/api/users/restaurant/signup`,{
-        method: "POST",
-        headers:{
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(inputs),
-      });
-
-      const data = await res.json();
-
-      
-      if(data.token){
-        localStorage.setItem("token",data.token);
-        navigate("/");
-      }
-      else{
+      if (data.token) {
+        setInfo({
+          userId: data._id,
+          isLoading: false,
+        });
+        localStorage.setItem('token', data.token);
+        navigate('/'); // Navigate to the desired page
+      } else {
         alert(data.err);
       }
-      
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
     }
-  }
-  
+  };
 
   return (
     <Container maxWidth="xs">
-        <Grid item xs={12}>
-            <Select
-              label="User Type"
-              variant="outlined"
-              fullWidth
-              value={userType}
-              onChange={handleChangeUserType}
-              required
-            >
-              <MenuItem value="restaurant">Restaurant</MenuItem>
-              <MenuItem value="library">Library</MenuItem>
-            </Select>
-          </Grid>
       <div>
         <Typography variant="h4" gutterBottom>
           Sign Up
@@ -99,7 +60,7 @@ const Signup = () => {
               variant="outlined"
               fullWidth
               name="name"
-              onChange={(e) => setInputs({...inputs, name: e.target.value})}
+              onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
               required
             />
           </Grid>
@@ -109,9 +70,8 @@ const Signup = () => {
               variant="outlined"
               fullWidth
               name="username"
-              type="username"
-              value={formData.username}
-              onChange={handleChange}
+              type="text" // Use 'text' as the input type
+              onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
               required
             />
           </Grid>
@@ -120,8 +80,9 @@ const Signup = () => {
               label="Password"
               variant="outlined"
               fullWidth
-              name="city"
-              onChange={(e) => setInputs({...inputs, password: e.target.value})}
+              name="password"
+              type="password"
+              onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
               required
             />
           </Grid>
@@ -131,8 +92,7 @@ const Signup = () => {
               variant="outlined"
               fullWidth
               name="city"
-              value={formData.city}
-              onChange={handleChange}
+              onChange={(e) => setInputs({ ...inputs, city: e.target.value })}
               required
             />
           </Grid>
@@ -143,8 +103,7 @@ const Signup = () => {
                 variant="outlined"
                 fullWidth
                 name="isVeg"
-                value={formData.isVeg}
-                onChange={handleChange}
+                onChange={(e) => setInputs({ ...inputs, isVeg: e.target.value })}
                 required
               />
             </Grid>
@@ -156,8 +115,7 @@ const Signup = () => {
                 variant="outlined"
                 fullWidth
                 name="totalTables"
-                value={formData.totalTables}
-                onChange={handleChange}
+                onChange={(e) => setInputs({ ...inputs, totalTables: e.target.value })}
                 required
               />
             </Grid>
@@ -169,16 +127,12 @@ const Signup = () => {
                 variant="outlined"
                 fullWidth
                 name="description"
-                value={formData.description}
-                onChange={handleChange}
+                onChange={(e) => setInputs({ ...inputs, description: e.target.value })}
                 inputProps={{
-                    maxLength: maxCharacterLimit,
+                  maxLength: maxCharacterLimit,
                 }}
                 required
               />
-              <Typography variant="body2" color={formData.description.length > maxCharacterLimit ? "error" : "textPrimary"}>
-                {formData.description.length}/{maxCharacterLimit}
-              </Typography>
             </Grid>
           )}
           {userType === 'library' && (
@@ -188,8 +142,7 @@ const Signup = () => {
                 variant="outlined"
                 fullWidth
                 name="totalSeats"
-                value={formData.totalSeats}
-                onChange={handleChange}
+                onChange={(e) => setInputs({ ...inputs, totalSeats: e.target.value })}
                 required
               />
             </Grid>
