@@ -74,16 +74,6 @@ router.post("/restaurant/login",async(req,res)=>{
     }
 })
 
-// router.post("/restaurant/logout",async(req,res)=>{
-//     try{
-//         res.status(200).json("User Logged Out successfully");
-//     }
-//     catch(err){
-//         res.status(404).json({err: err.message});
-//         console.log("message "+err.message);
-//     }
-// })
-
 router.post("/library/signup",async(req,res)=>{
     try{
 
@@ -161,15 +151,9 @@ router.post("/library/login",async(req,res)=>{
 
 })
 
-router.post("/hospital/signup",(req,res)=>{
-
-    
+router.post("/hospital/signup",async(req,res)=>{
+   
 })
-
-
-
-
-
 
 
 export default router;

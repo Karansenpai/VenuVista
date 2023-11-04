@@ -42,7 +42,7 @@ export function InitUser() {
   const setUser = useSetRecoilState(userInfo);
   const init = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/me`, {
+        const response = await axios.get(`${BASE_URL}/api/fetch/me`, {
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("token"),
         },
