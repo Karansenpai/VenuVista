@@ -49,7 +49,7 @@ const Signup = () => {
 
   return (
     <Container maxWidth="xs">
-      <div>
+      <div style={{marginTop: '16px', marginBottom: '16px'}}>
         <Typography variant="h4" gutterBottom>
           Sign Up
         </Typography>

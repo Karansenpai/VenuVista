@@ -38,7 +38,7 @@ function App() {
 
   return (
     <RecoilRoot>
-      <div style={{minHeight: '100vh', display: 'flex', }}>
+      <div style={{minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
         <Router>
           <InitUser/>
           <Navbar />
