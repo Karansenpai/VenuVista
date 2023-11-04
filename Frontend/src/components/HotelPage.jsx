@@ -8,7 +8,25 @@ import TextField from '@mui/material/TextField';
 import { BASE_URL } from "./config";
 import axios from "axios";
 
+
+
 export default function HotelPage() {
+
+  const [data, setData] = React.useState({});
+  React.useEffect(()=>{
+    const init = async() =>{
+      const response = await axios.get(
+        `${BASE_URL}/api/fetch/fetchone`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      setData(response.data);
+    }
+    init();
+  },[])
   const [seats, setseats] = React.useState(0);
   const [vacate, setvacate] = React.useState(0);
   return (
@@ -22,11 +40,10 @@ export default function HotelPage() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Hotel 1
+          {data.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {data.description}
           </Typography>
         </CardContent>
       </CardActionArea>

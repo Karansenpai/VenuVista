@@ -1,6 +1,9 @@
 import express from "express";
 import authenticateJwt from "../middlewares/authenticatjwt.js";
 
+import Restaurant from "../modals/restaurantModal.js";
+
+
 const router = express.Router();
 
 router.put("/book",authenticateJwt, async(req,res)=>{
