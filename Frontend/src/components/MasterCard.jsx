@@ -65,7 +65,7 @@ const MasterCard = () => {
     <Grid container spacing={3} >
       {hotelsData.map((hotel) => (
         <Grid item xs={12} sm={6} md={4} key={hotel.id} display="flex" direction="column" alignItems="center">
-          <HotelCard title={hotel.title} img={hotel.img} description={hotel.description} />
+          <HotelCard title={hotel.title} img={hotel.img} description={hotel.description} id={hotel.id}/>
         </Grid>
       ))}
     </Grid>
