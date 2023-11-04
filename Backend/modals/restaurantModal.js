@@ -18,7 +18,7 @@ const restaurantSchema = mongoose.Schema({
         required: true,
     },
     isVeg: {
-        type: Boolean,
+        type: String,
         required: true,
     },
     totalTables: {
