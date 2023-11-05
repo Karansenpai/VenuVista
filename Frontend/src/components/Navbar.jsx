@@ -35,7 +35,7 @@ export default function Navbar() {
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               <a href="/" style={linkStyle}>
-                Void
+                Venue Vista
               </a>
             </Typography>
             <Button
@@ -79,7 +79,7 @@ export default function Navbar() {
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <a href="/" style={linkStyle}>
-              Void
+            Venue Vista
             </a>
           </Typography>
           <Button
