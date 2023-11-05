@@ -50,7 +50,7 @@ function App() {
             <Route path="/restaurants" element= {<MasterCard/>}></Route>
             <Route path="/" element= {<HomePage/>}></Route>
             <Route path="/hotelpage" element={<HotelPage/>}></Route>
-            <Route path="/insidehotel/:id" element={<Insidehotel/>}></Route>
+            <Route path="/restaurants/insidehotel/:id" element={<Insidehotel/>}></Route>
           </Routes>  
           <Footer/>
         </Router>
