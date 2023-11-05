@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField, Grid, Typography, Container, Select, MenuItem } from '@mui/material';
+import { Button, TextField, Grid, Typography, Container, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { BASE_URL } from './config';
 import { userInfo } from '../../atoms/userInfo';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import axios from 'axios'; // Import axios for making HTTP requests
 
 const Signup = () => {
   const setInfo = useSetRecoilState(userInfo);
-  const navigate = useNavigate(); // Added navigate function
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     name: '',
     username: '',
@@ -20,17 +20,14 @@ const Signup = () => {
     description: '',
   });
 
-  const [userType, setUserType] = useState('restaurant'); // State to store the selected user type
+  const [userType, setUserType] = useState('restaurant');
 
   const maxCharacterLimit = 60;
 
   const handleSignup = async () => {
     try {
-      console.log(inputs);
-
-      const res = await axios.post(`${BASE_URL}/api/users/restaurant/signup`, inputs); // Send the 'inputs' object directly
-
-      const data = res.data; // Use res.data to get response data
+      const res = await axios.post(`${BASE_URL}/api/users/restaurant/signup`, inputs);
+      const data = res.data;
 
       if (data.token) {
         setInfo({
@@ -38,7 +35,7 @@ const Signup = () => {
           isLoading: false,
         });
         localStorage.setItem('token', data.token);
-        navigate('/hotelpage'); // Navigate to the desired page
+        navigate('/hotelpage');
       } else {
         alert(data.err);
       }
@@ -48,8 +45,8 @@ const Signup = () => {
   };
 
   return (
-    <Container maxWidth="xs">
-      <div style={{marginTop: '16px', marginBottom: '16px'}}>
+    <Container maxWidth="sm">
+      <div style={{ marginTop: '16px', marginBottom: '16px', padding: '16px', background: '#f5f5f5', borderRadius: '8px' }}>
         <Typography variant="h4" gutterBottom>
           Sign Up
         </Typography>
@@ -70,7 +67,7 @@ const Signup = () => {
               variant="outlined"
               fullWidth
               name="username"
-              type="text" // Use 'text' as the input type
+              type="text"
               onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
               required
             />
@@ -111,7 +108,7 @@ const Signup = () => {
           {userType === 'restaurant' && (
             <Grid item xs={12}>
               <TextField
-                label="totalTables"
+                label="Total Tables"
                 variant="outlined"
                 fullWidth
                 name="totalTables"
@@ -123,7 +120,7 @@ const Signup = () => {
           {userType === 'restaurant' && (
             <Grid item xs={12}>
               <TextField
-                label="description"
+                label="Description"
                 variant="outlined"
                 fullWidth
                 name="description"
@@ -138,7 +135,7 @@ const Signup = () => {
           {userType === 'library' && (
             <Grid item xs={12}>
               <TextField
-                label="totalSeats"
+                label="Total Seats"
                 variant="outlined"
                 fullWidth
                 name="totalSeats"
@@ -155,6 +152,7 @@ const Signup = () => {
           fullWidth
           size="large"
           onClick={handleSignup}
+          style={{ marginTop: '16px', background: '#007bff', color: 'white', fontWeight: 'bold' }}
         >
           Sign Up
         </Button>

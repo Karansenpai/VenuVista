@@ -19,9 +19,20 @@ const MasterCard = () => {
   useEffect(() => {
     fetchData();
   }, []); // Empty dependency array ensures this effect runs only once
-  console.log(hotelsData);
+
+  const gridStyle = {
+    marginTop: "16px",
+    marginBottom: "16px",
+  };
+
+  const gridItemStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  };
+
   return (
-    <div style={{ marginTop: "16px", marginBottom: "16px" }}>
+    <div style={gridStyle}>
       <Grid container spacing={3}>
         {hotelsData.map((hotel) => (
           <Grid
@@ -30,9 +41,7 @@ const MasterCard = () => {
             sm={6}
             md={4}
             key={hotel._id}
-            display="flex"
-            direction="column"
-            alignItems="center"
+            style={gridItemStyle}
           >
             <HotelCard
               name={hotel.name}

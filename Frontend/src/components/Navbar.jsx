@@ -14,6 +14,16 @@ export default function Navbar() {
   const user = useRecoilValue(userInfo);
   const setUser = useSetRecoilState(userInfo);
 
+  const navbarStyle = {
+    backgroundColor: "#333", // Background color
+    color: "white", // Text color
+  };
+
+  const linkStyle = {
+    color: "white",
+    textDecoration: "none",
+  };
+
   if (user.isLoading) {
     return <div>Loading</div>;
   }
@@ -21,11 +31,21 @@ export default function Navbar() {
   if (user.userId) {
     return (
       <Box>
-        <AppBar position="static">
+        <AppBar position="static" sx={navbarStyle}>
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <a href="/" style={{color: "white","textDecoration":"none"}}> Void</a>
+              <a href="/" style={linkStyle}>
+                Void
+              </a>
             </Typography>
+            <Button
+              color="inherit"
+              onClick={() => {
+                navigate("/restaurants");
+              }}
+            >
+              List Restaurants
+            </Button>
             <Button
               color="inherit"
               onClick={() => {
@@ -55,11 +75,21 @@ export default function Navbar() {
 
   return (
     <Box>
-      <AppBar position="static">
+      <AppBar position="static" sx={navbarStyle}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <a href="/" style={{color: "white","textDecoration":"none"}}> Void</a>
+            <a href="/" style={linkStyle}>
+              Void
+            </a>
           </Typography>
+          <Button
+            color="inherit"
+            onClick={() => {
+              navigate("/restaurants");
+            }}
+          >
+            List Restaurants
+          </Button>
           <Button
             color="inherit"
             onClick={() => {
@@ -74,7 +104,7 @@ export default function Navbar() {
               navigate("/signup");
             }}
           >
-          Sign up
+            Sign up
           </Button>
         </Toolbar>
       </AppBar>
